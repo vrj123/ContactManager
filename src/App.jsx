@@ -17,8 +17,10 @@ const App = () => {
   const [isopen, setIsOpen]=useState(false);
   const [isUpdate, setIsUpdate]=useState(false);
   const [notFound, setNotFound]=useState(false);
+  const [updateId, setUpdateId]=useState("");
 
-  const onOpen=(update)=>{
+  const onOpen=(update, id)=>{
+    if(update===true) setUpdateId(id);
     setIsOpen(true);
     setIsUpdate(update);
   }
@@ -26,6 +28,7 @@ const App = () => {
   const onClose=()=>{
     setIsOpen(false);
     setIsUpdate(false);
+    setUpdateId("");
   }
 
   useEffect(()=>{
@@ -80,7 +83,7 @@ const App = () => {
       <div className='flex flex-col gap-2 my-6'>
         {
           contacts.map((info)=>{
-            return <Contact name={info.name} email={info.email} key={info.id} id={info.id} open={onOpen} isUpdate={isUpdate} close={onClose} />
+            return <Contact name={info.name} email={info.email} key={info.id} id={info.id} open={onOpen} isUpdate={isUpdate} close={onClose} updateId={updateId} />
           })
         }
       </div>

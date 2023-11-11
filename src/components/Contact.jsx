@@ -7,7 +7,7 @@ import { db } from "../config/firebase";
 import Modal from "./Modal";
 import { toast } from "react-toastify";
 
-const Contact = ({ name, email, id, open, isUpdate, close}) => {
+const Contact = ({ name, email, id, open, isUpdate, close, updateId}) => {
   const deleteContact = async (id) => {
     try {
       await deleteDoc(doc(db, "contacts", id));
@@ -32,7 +32,7 @@ const Contact = ({ name, email, id, open, isUpdate, close}) => {
         <div className="flex text-3xl gap-2">
           <RiEditCircleLine
             className="cursor-pointer"
-            onClick={() => open(true)}
+            onClick={() => open(true, id)}
           />
           <MdDelete
             className="text-orange cursor-pointer"
@@ -41,7 +41,7 @@ const Contact = ({ name, email, id, open, isUpdate, close}) => {
         </div>
       </div>
       {
-        isUpdate && <Modal isUpdate={isUpdate} close={close} name={name} email={email} id={id}/>
+        isUpdate && id==updateId && <Modal isUpdate={isUpdate} close={close} name={name} email={email} id={id}/>
       }
     </>
   );
